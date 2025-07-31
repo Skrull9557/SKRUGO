@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xarthisus exe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+          @import url('https://fonts.cdnfonts.com/css/gobold');
+ body {
+                font-family: 'Gobold';
+            background-color: #191c3c;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .countdown-container {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(45deg, #c93c48, #d15b1b);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .countdown-heading {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .countdown-time {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .time-block {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem 0.5rem;
+            border-radius: 10px;
+            min-width: 100px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .time-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .time-label {
+            font-size: 1rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+            width: 0;
+            transition: width 1s linear;
+            border-radius: 4px;
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            opacity: 0.9;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 211, 16, 0.05);
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+        }
+        
+        @media (max-width: 600px) {
+            .countdown-heading {
+                font-size: 2rem;
+            }
+            
+            .time-value {
+                font-size: 2.5rem;
+            }
+            
+            .time-block {
+                min-width: 75px;
+                padding: 1rem 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        
+        <h1 class="countdown-heading">out of predicitions</h1>
+        
+        <div class="countdown-time">
+            <div class="time-block">
+                <div class="time-value" id="hours">24</div>
+                <div class="time-label">Hours</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value" id="minutes">00</div>
+                <div class="time-label">Minutes</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value" id="seconds">00</div>
+                <div class="time-label">Seconds</div>
+            </div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+        
+        <p class="message" id="message"> <a href="index.html">try again later</a> </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hoursElement = document.getElementById('hours');
+            const minutesElement = document.getElementById('minutes');
+            const secondsElement = document.getElementById('seconds');
+            const progressElement = document.getElementById('progress');
+            const messageElement = document.getElementById('message');
+            
+            // Total duration in seconds (24 hours)
+            const totalDuration = 24 * 60 * 60;
+            let remainingSeconds = totalDuration;
+            
+            // Start the countdown
+            updateDisplay();
+            const countdown = setInterval(updateCountdown, 1000);
+            
+            function updateCountdown() {
+                remainingSeconds--;
+                
+                if (remainingSeconds <= 0) {
+                    clearInterval(countdown);
+                    completeCountdown();
+                } else {
+                    updateDisplay();
+                }
+            }
+            
+            function updateDisplay() {
+                // Calculate hours, minutes, seconds
+                const hours = Math.floor(remainingSeconds / 3600);
+                const minutes = Math.floor((remainingSeconds % 3600) / 60);
+                const seconds = remainingSeconds % 60;
+                
+                // Update display
+                hoursElement.textContent = hours.toString().padStart(2, '0');
+                minutesElement.textContent = minutes.toString().padStart(2, '0');
+                secondsElement.textContent = seconds.toString().padStart(2, '0');
+                
+                // Update progress bar
+                const progress = 100 - (remainingSeconds / totalDuration * 100);
+                progressElement.style.width = `${progress}%`;
+                
+                // Update message based on time left
+                if (remainingSeconds <= 3600) {
+                    messageElement.textContent = "Less than 1 hour remaining!";
+                    document.body.style.background = "linear-gradient(135deg, #1e3c72 0%, #8b0000 100%)";
+                } else if (remainingSeconds <= 12 * 3600) {
+                    messageElement.textContent = "Halfway through the countdown!";
+                    document.body.style.background = "linear-gradient(135deg, #1e3c72 0%, #436280 100%)";
+                }
+            }
+            
+            function completeCountdown() {
+                hoursElement.textContent = '00';
+                minutesElement.textContent = '00';
+                secondsElement.textContent = '00';
+                progressElement.style.width = '100%';
+                messageElement.textContent = "Countdown complete! 24 hours have passed.";
+                document.body.style.background = "linear-gradient(135deg, #006400 0%, #004d00 100%)";
+                
+                // Celebration effect
+                setTimeout(() => {
+                    for (let i = 0; i < 50; i++) {
+                        createConfetti();
+                    }
+                }, 500);
+            }
+            
+            function createConfetti() {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.position = 'absolute';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = -20 + 'px';
+                confetti.style.borderRadius = '50%';
+                document.body.appendChild(confetti);
+                
+                const animationDuration = Math.random() * 3 + 2;
+                confetti.style.animation = `fall ${animationDuration}s linear forwards`;
+                
+                // Add CSS animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fall {
+                        to {
+                            transform: translateY(${window.innerHeight + 20}px) rotate(${Math.random() * 360}deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                    style.remove();
+                }, animationDuration * 1000);
+            }
+        });
+    </script>
+</body>
+</html>
