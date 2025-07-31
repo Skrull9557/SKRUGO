@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xarthisus exe</title>
+    <link rel="icon" href="10.jpg" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/gobold');
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .processing {
+            animation: pulse 1.5s infinite;
+            position: relative;
+        }
+        .processing::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: inherit;
+        }
+        body, button {
+            font-family: 'Gobold';
+        }
+        .disabled-button {
+            background-color: #4B5563; /* Grey background */
+            cursor: not-allowed;
+        }
+        .enabled-button {
+            background: linear-gradient(to right, #d15b1b, #c93c48); /* Gradient background */
+        }
+        
+        /* Footer styles */
+        footer {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-size: 0.75rem;
+            color: #999;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        footer .version {
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-[#191c3c] min-h-screen flex items-center justify-center p-4 flex-col">
+    <div class="max-w-md w-full bg-[#141635] rounded-xl shadow-2xl overflow-hidden border border-[#2a2470]">
+        <!-- Header -->
+        <div class="bg-[#22245f] py-4 px-6">
+            <h1 class="text-2xl font-bold text-white text-center flex items-center justify-center">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#d15b1b] to-[#c93c48]">1x bet Crash </span>
+                <span class="text-white"> Predictor</span>
+            </h1>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="p-6">
+            <!-- Input Field -->
+            <div class="mb-4">
+                <label for="userId" class="block text-sm font-medium text-gray-300 mb-2">Enter Your User ID</label>
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="userId" 
+                        placeholder="e.g., 123456789" 
+                        class="w-full px-4 py-3 bg-[#1e203c] border border-[#2a2470] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#d15b1b] focus:border-transparent"
+                    >
+                    <div class="absolute right-3 top-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Checkboxes -->
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center">
+                    <input 
+                        id="promoUsed" 
+                        type="checkbox" 
+                        class="h-4 w-4 text-[#d15b1b] focus:ring-[#d15b1b] border-[#2a2470] rounded bg-[#1e203c]"
+                    >
+                    <label for="promoUsed" class="ml-2 block text-sm text-gray-300">
+                        I have used a promo code
+                    </label>
+                </div>
+                <div class="flex items-center">
+                    <input 
+                        id="depositMade" 
+                        type="checkbox" 
+                        class="h-4 w-4 text-[#d15b1b] focus:ring-[#d15b1b] border-[#2a2470] rounded bg-[#1e203c]"
+                    >
+                    <label for="depositMade" class="ml-2 block text-sm text-gray-300">
+                        I have made a deposit
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Start Button -->
+            <button 
+                id="startBtn" 
+                class="w-full py-3 px-4 disabled-button text-white font-extrabold rounded-lg shadow-lg transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#d15b1b] focus:ring-opacity-50 text-lg"
+                disabled
+            >
+                START PREDICTING
+            </button>
+            <p id="errorMessage" class="hidden text-red-500 text-sm text-center mt-2">Please check the boxes to enable the button.</p>
+            
+            <!-- Processing Indicator -->
+            <div id="processingIndicator" class="hidden mt-6 p-4 bg-[#1e203c] border border-[#2a2470] rounded-lg">
+                <div class="flex items-center justify-center space-x-3">
+                    <div class="h-4 w-4 rounded-full bg-[#d15b1b] processing"></div>
+                    <div class="h-4 w-4 rounded-full bg-[#d15b1b] processing" style="animation-delay: 0.2s"></div>
+                    <div class="h-4 w-4 rounded-full bg-[#d15b1b] processing" style="animation-delay: 0.4s"></div>
+                    <div class="h-4 w-4 rounded-full bg-[#d15b1b] processing" style="animation-delay: 0.6s"></div>
+                </div>
+                <p class="mt-3 text-center text-gray-300 text-sm">Processing your request. Please wait...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Blending Footer -->
+    <footer class="mt-8">
+        <div class="flex items-center justify-center">
+            <span class="version">v3.17.01</span>
+            <span class="copyright">© 2025 SKRUGO. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script>
+        const startBtn = document.getElementById('startBtn');
+        const promoUsed = document.getElementById('promoUsed');
+        const depositMade = document.getElementById('depositMade');
+        const errorMessage = document.getElementById('errorMessage');
+
+        function updateButtonState() {
+            if (promoUsed.checked && depositMade.checked) {
+                startBtn.classList.remove('disabled-button');
+                startBtn.classList.add('enabled-button'); // Add gradient class
+                startBtn.disabled = false;
+                errorMessage.classList.add('hidden');
+            } else {
+                startBtn.classList.add('disabled-button');
+                startBtn.classList.remove('enabled-button'); // Remove gradient class
+                startBtn.disabled = true;
+            }
+        }
+
+        promoUsed.addEventListener('change', updateButtonState);
+        depositMade.addEventListener('change', updateButtonState);
+
+        startBtn.addEventListener('click', function() {
+            if (startBtn.disabled) {
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            const userId = document.getElementById('userId').value;
+
+            // Validate inputs
+            if (!userId) {
+                alert('Please enter your User ID');
+                return;
+            }
+            
+            // Show processing indicator
+            this.disabled = true;
+            document.getElementById('processingIndicator').classList.remove('hidden');
+            
+            // Disable inputs during processing
+            document.getElementById('userId').disabled = true;
+            promoUsed.disabled = true;
+            depositMade.disabled = true;
+
+            // Simulate processing in 3 phases of 2 seconds each
+            setTimeout(() => {
+                // Phase 1 complete
+                document.getElementById('processingIndicator').querySelector('p').innerText = "verifying...";
+            }, 2000);
+
+            setTimeout(() => {
+                // Phase 2 complete
+                document.getElementById('processingIndicator').querySelector('p').innerText = "connecting to 1x bet...";
+            }, 4000);
+
+            setTimeout(() => {
+                // Phase 3 complete, redirect
+                document.getElementById('processingIndicator').querySelector('p').innerText = "connecting to crash...";
+                setTimeout(() => {
+                    document.getElementById('processingIndicator').classList.add('hidden');
+                    window.location.href = 'result.html'; // Change to your desired page
+                }, 2000); // Wait for 2 seconds before redirecting
+            }, 6000);
+        });
+    </script>
+</body>
+</html>

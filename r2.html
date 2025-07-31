@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xarthisus exe</title>
+          <link rel="icon" href="10.jpg" type="image/x-icon">
+    <meta http-equiv="refresh" content="5; r3.html">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/gobold');
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .processing-dot {
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .content-hidden {
+            display: none;
+        }
+        body, button {
+            font-family: 'Gobold';
+        }
+        /* Custom styles */
+        .bg-custom {
+            background-color: #191c3c;
+        }
+        .text-gradient {
+            background: linear-gradient(90deg, #d15b1b, #c93c48);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-custom text-white h-screen flex flex-col">
+    <div class="relative h-full w-full">
+        <div id="loading" class="absolute inset-0 flex flex-col items-center justify-center space-y-4">
+            <div class="flex space-x-2">
+                <div class="processing-dot h-3 w-3 rounded-full bg-gradient-to-r from-[#d15b1b] to-[#c93c48]"></div>
+                <div class="processing-dot h-3 w-3 rounded-full bg-gradient-to-r from-[#d15b1b] to-[#c93c48]"></div>
+                <div class="processing-dot h-3 w-3 rounded-full bg-gradient-to-r from-[#d15b1b] to-[#c93c48]"></div>
+            </div>
+            <p class="text-gray-400 font-medium tracking-wide">PREDICTING</p>
+        </div>
+
+        <div id="content" class="content-hidden h-full w-full relative">
+            <div class="absolute top-4 right-4">
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-400">predictions left:</span>
+                    <span class="font-bold text-xl text-gradient">3/10</span>
+                </div>
+            </div>
+
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <div class="text-center">
+                    <h1 class="text-6xl font-bold mb-4 text-gradient">8.81x</h1>
+                    <button id="stopBtn" aria-label="Stop the game" class="mt-8 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all transform hover:scale-105">
+                        STOP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingElement = document.getElementById('loading');
+            const contentElement = document.getElementById('content');
+            const stopBtn = document.getElementById('stopBtn');
+
+            setTimeout(() => {
+                loadingElement.classList.add('hidden');
+                contentElement.classList.remove('content-hidden');
+                
+                const dots = document.querySelectorAll('.processing-dot');
+                dots.forEach(dot => {
+                    dot.classList.remove('processing-dot');
+                });
+            }, 3000);
+
+            stopBtn.addEventListener('click', function() {
+                window.location.href = 'index.html';
+                console.log('Stop button clicked');
+            });
+        });
+    </script>
+</body>
+</html>
